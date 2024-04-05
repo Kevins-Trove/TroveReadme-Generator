@@ -1,4 +1,6 @@
 
+const { execSync } = require('child_process');
+
 class ReadMe {
   constructor(questions) {
     this.title = questions.title;
@@ -7,8 +9,19 @@ class ReadMe {
     this.usage = questions.usage;
     this.contribution = questions.contribution;
     this.test = questions.test;
+    this.repository = this.getGitRepository();
   }
 
+  getGitRepository() {
+    try {
+      // Run git command to get remote URL
+      const result = execSync('git config --get remote.origin.url');
+  
+      // return formated value
+      return result.toString().trim();
+    } catch (error) {}
+  }
+  
   renderTitle (){
     console.log(this.question)
     return `#  ${this.title} \n\n`;
@@ -44,18 +57,19 @@ class ReadMe {
 
   
   renderSignature (){
-    return `## Check out my work, feel free to adapt it to your needs`;
+    const text = `---\n## Check out my work, feel free to adapt it to your needs\n`;
+  
+    const out = text + `[See the repository](${this.repository})`
 
+  //`[Visit the Trove Planer site](https://kevins-trove.github.io/TrovePlanner/)
+    
+   return out;
   };
 
-  renderCopywrite (){
-    return `- - -\n© 2024 Kevins Trove LLC.`;
-
-  };
- 
+  
 
   render (){
-    console.log(this.renderTitle() + this.renderDescription() + this.renderToc() + this.renderCopywrite());
+    console.log(this.renderTitle() + this.renderDescription() + this.renderToc() + this.renderSignature());
   };
 
 };
@@ -150,5 +164,12 @@ If you created an application or package and would like other developers to cont
 Go the extra mile and write tests for your application. Then provide examples on how to run them here.`
 
 }
+
+
+
+
+
+
+
 
 module.exports = ReadMe;

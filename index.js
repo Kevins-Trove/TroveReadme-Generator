@@ -1,25 +1,26 @@
-// TODO: Include packages needed for this application
+//------------------------------------------------------------
+// Packages
+//------------------------------------------------------------
 const inquirer = require('inquirer');
 const fs = require('fs');
 const ReadMe = require('./utils/generateMarkdown');
+const { execSync } = require('child_process');
 
-// TODO: Create an array of questions for user input
-//const questions = [];
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
+//------------------------------------------------------------
+// Default values
+//------------------------------------------------------------
+const respoitryName = getGitRepositoryName();
 
-}
-
-
-// TODO: Create a function to initialize app
-function init() {
-    //prompt(question).then()
-    inquirer
-  .prompt([
+//------------------------------------------------------------
+// Main
+//------------------------------------------------------------
+function main() {
+inquirer.prompt([
     {
       type: 'input',
       name: 'title',
-      message: 'Project title?'
+      message: 'Project title?',
+      default: respoitryName
     },
     {
       type: 'input',
@@ -40,8 +41,7 @@ function init() {
       type: 'input',
       name: 'contribution',
       message: 'Contribution guidelines:'
-    }
-    ,
+    },
     {
       type: 'input',
       name: 'test',
@@ -51,10 +51,31 @@ function init() {
   .then((answers) => {
     const myReadMe = new ReadMe(answers);
     myReadMe.render();
+    
   });
 }
 
 
+//------------------------------------------------------------
+// Support functions
+//------------------------------------------------------------
 
-// Function call to initialize app
-init();
+// Get Git repository name
+function getGitRepositoryName() {
+  try {
+    // Run git command to get remote URL
+    const url = execSync('git config --get remote.origin.url').toString().trim();
+    
+     // Extract repository name from URL
+     const parts = url.split('/');
+     const repositoryName = parts[parts.length - 1].replace('.git', '');
+ 
+     return repositoryName;
+  } catch (error) {}
+}
+
+
+//------------------------------------------------------------
+// Start and initialize app
+//------------------------------------------------------------
+main();
