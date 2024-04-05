@@ -7,9 +7,10 @@ class ReadMe {
     this.description = questions.description;
     this.installation = questions.installation;
     this.usage = questions.usage;
-    this.contribution = questions.contribution;
+    this.credits = questions.credits;
     this.test = questions.test;
     this.repository = this.getGitRepository();
+    this.contact = questions.contact;
   }
 
   getGitRepository() {
@@ -21,58 +22,81 @@ class ReadMe {
       return result.toString().trim();
     } catch (error) {}
   }
-  
-  renderTitle (){
-    console.log(this.question)
-    return `#  ${this.title} \n\n`;
-  };
-
-  renderDescription (){
-    return `##  ${this.description} \n\n`;
-  };
-
-  renderToc (){
-    const text = `## Table of Contents \n\n`;
-
-    return text;
-  };
-
-  renderUsage (){
-    const text = `## Usage \n\n`;
-
-    return text;
-  };
-
-  renderContribute (){
-    const text = `## How to Contribute \n\n${this.contribution}\n\n`;
-
-    return text;
-  };
- 
-  renderTests (){
-    const text = `## Tests \n\n${this.test}\n\n`;
-
-    return text;
-  };
-
-  
-  renderSignature (){
-    const text = `---\n## Check out my work, feel free to adapt it to your needs\n`;
-  
-    const out = text + `[See the repository](${this.repository})`
-
-  //`[Visit the Trove Planer site](https://kevins-trove.github.io/TrovePlanner/)
-    
-   return out;
-  };
-
-  
+   
 
   render (){
-    console.log(this.renderTitle() + this.renderDescription() + this.renderToc() + this.renderSignature());
+    let items = [];
+
+    // Layout order of ReadMe Items
+    items.push(this.renderTitle());
+    items.push(this.renderDescription());
+    items.push(this.renderToc());
+    items.push(this.renderInstall());
+    items.push(this.renderUsage());
+    items.push(this.renderCredits());
+    items.push(this.renderTests());
+    items.push(this.renderContact());
+    items.push(this.renderSignature());
+
+    return items.join("\n");
+    
   };
 
 };
+
+ReadMe.prototype.renderTitle = function  (){
+  return this.title ? `#  ${this.title} \n` : null;
+};
+
+ReadMe.prototype.renderDescription = function  (){
+  return this.description ? `##  ${this.description} \n` : null;
+};
+
+ReadMe.prototype.renderToc = function  (){
+  let out = [];
+
+  if (this.renderInstall()) out.push(`Installation`);
+  if (this.rend()) out.push(`Questions`);
+  if (this.renderTests()) out.push(`Testing`);
+
+  if (this.renderContact()) out.push(`Questions`);
+
+  return out ? `## Table of contents\n\n` + out.join(`\n`) : null
+};
+
+ReadMe.prototype.renderInstall = function  (){
+  return this.installation ? `## Installation\n\n ${this.installation} \n` : null;
+};
+
+ReadMe.prototype.renderUsage = function  (){
+  return this.installation ? `## Usage\n\n ${this.usage} \n` : null;
+};
+
+ReadMe.prototype.renderCredits = function (){
+  return this.installation ? `## Credits\n\n ${this.contribution} \n` : null;
+};
+
+ReadMe.prototype.renderTests = function (){
+  return this.installation ? `## Tests\n\n ${this.test} \n` : null;
+};
+
+ReadMe.prototype.renderContact = function (){
+  let out = [];
+
+  out.push(`---\n## Questions\n`);
+  out.push(`Check out my work, feel free to adapt it to your needs or reach out to me directly.\n`);
+  out.push(`[See the repository](${this.repository})\n`);
+  out.push(`[Contact Me](mailto:${this.contact})\n`);
+  
+  return out ? out.join(`\n`) : null;
+};
+
+ReadMe.prototype.renderSignature = function (){
+  const out = `---\n`;
+
+  return out ? out : null;
+};
+
 
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
@@ -93,83 +117,6 @@ function generateMarkdown(data) {
 
 `;
 }
-
-function body(){
-const text = `# <Your-Project-Title>
-
-## Description
-
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
-
-## Table of Contents (Optional)
-
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
-
-## Installation
-
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
-
-## Usage
-
-Provide instructions and examples for use. Include screenshots as needed.
-
-To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-    md
-    ![alt text](assets/images/screenshot.png)
-    
-
-## Credits
-
-List your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
-
-## License
-
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
-
----
-
-🏆 The previous sections are the bare minimum, and your project will ultimately determine the content of this document. You might also want to consider adding the following sections.
-
-## Badges
-
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-
-Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
-
-## Features
-
-If your project has a lot of features, list them here.
-
-## How to Contribute
-
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
-
-## Tests
-
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.`
-
-}
-
-
-
-
-
-
 
 
 module.exports = ReadMe;

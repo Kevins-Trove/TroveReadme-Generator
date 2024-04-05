@@ -10,6 +10,7 @@ const { execSync } = require('child_process');
 // Default values
 //------------------------------------------------------------
 const respoitryName = getGitRepositoryName();
+const respoitryEmail = getGitUserEmail();
 
 //------------------------------------------------------------
 // Main
@@ -39,18 +40,26 @@ inquirer.prompt([
     },
     {
       type: 'input',
-      name: 'contribution',
-      message: 'Contribution guidelines:'
+      name: 'credits',
+      message: 'Credits (collaborators):'
     },
     {
       type: 'input',
       name: 'test',
       message: 'test instructions:'
     }
+    ,
+    {
+      type: 'input',
+      name: 'contact',
+      message: 'Contact info for questions',
+      default: respoitryEmail
+    }
+  
   ])
   .then((answers) => {
     const myReadMe = new ReadMe(answers);
-    myReadMe.render();
+    console.log(myReadMe.render());
     
   });
 }
@@ -60,10 +69,10 @@ inquirer.prompt([
 // Support functions
 //------------------------------------------------------------
 
-// Get Git repository name
+// Extract repository name from git
 function getGitRepositoryName() {
   try {
-    // Run git command to get remote URL
+    // Git command to get URL of remote 
     const url = execSync('git config --get remote.origin.url').toString().trim();
     
      // Extract repository name from URL
@@ -74,6 +83,15 @@ function getGitRepositoryName() {
   } catch (error) {}
 }
 
+// Extract repository user email name from git
+function getGitUserEmail() {
+  try {
+    // Git command to get user email
+    const result = execSync('git config --get user.email');
+    return result.toString().trim();
+  } catch (error) {};
+  
+}
 
 //------------------------------------------------------------
 // Start and initialize app
