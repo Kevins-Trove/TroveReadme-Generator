@@ -1,3 +1,65 @@
+
+class ReadMe {
+  constructor(questions) {
+    this.title = questions.title;
+    this.description = questions.description;
+    this.installation = questions.installation;
+    this.usage = questions.usage;
+    this.contribution = questions.contribution;
+    this.test = questions.test;
+  }
+
+  renderTitle (){
+    console.log(this.question)
+    return `#  ${this.title} \n\n`;
+  };
+
+  renderDescription (){
+    return `##  ${this.description} \n\n`;
+  };
+
+  renderToc (){
+    const text = `## Table of Contents \n\n`;
+
+    return text;
+  };
+
+  renderUsage (){
+    const text = `## Usage \n\n`;
+
+    return text;
+  };
+
+  renderContribute (){
+    const text = `## How to Contribute \n\n${this.contribution}\n\n`;
+
+    return text;
+  };
+ 
+  renderTests (){
+    const text = `## Tests \n\n${this.test}\n\n`;
+
+    return text;
+  };
+
+  
+  renderSignature (){
+    return `## Check out my work, feel free to adapt it to your needs`;
+
+  };
+
+  renderCopywrite (){
+    return `- - -\n© 2024 Kevins Trove LLC.`;
+
+  };
+ 
+
+  render (){
+    console.log(this.renderTitle() + this.renderDescription() + this.renderToc() + this.renderCopywrite());
+  };
+
+};
+
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {}
@@ -12,6 +74,7 @@ function renderLicenseSection(license) {}
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
+  
   return `# ${data.title} ${renderLicenseBadge()}
 
 `;
@@ -88,4 +151,4 @@ Go the extra mile and write tests for your application. Then provide examples on
 
 }
 
-module.exports = generateMarkdown;
+module.exports = ReadMe;
