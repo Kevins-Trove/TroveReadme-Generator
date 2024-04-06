@@ -2,15 +2,16 @@
 // Packages
 //------------------------------------------------------------
 const inquirer = require('inquirer');
-const fs = require('fs');
-const ReadMe = require('./utils/generateMarkdown');
+const ReadMe = require('./utils/generateMarkdownClass');
 const { execSync } = require('child_process');
+const License = require('./utils/license');
 
 //------------------------------------------------------------
 // Default values
 //------------------------------------------------------------
 const respoitryName = getGitRepositoryName();
 const respoitryEmail = getGitUserEmail();
+
 
 //------------------------------------------------------------
 // Main
@@ -27,6 +28,13 @@ inquirer.prompt([
       type: 'input',
       name: 'description',
       message: 'Project description?'
+    },
+    {
+      type: 'list',
+      name: 'license',
+      message: 'License for project?',
+      choices: new License().licenseBadgeList(),
+      default: "MIT"
     },
     {
       type: 'input',
@@ -59,7 +67,7 @@ inquirer.prompt([
   ])
   .then((answers) => {
     const myReadMe = new ReadMe(answers);
-    console.log(myReadMe.render());
+    myReadMe.writeToFile(`README.md`);
     
   });
 }
