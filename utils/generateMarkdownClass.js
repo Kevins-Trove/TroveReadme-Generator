@@ -23,8 +23,8 @@ const readMeFileName = "README.md";
 class ReadMe {
   constructor(questions) {
     this.title = questions.title;
-    this.description = questions.description;
-    this.installation = questions.installation;
+    this.description = new String(questions.description).replace("\n", "<br>");
+    this.installation = new String(questions.installation).replace("\n", "<br>");
     this.usage = questions.usage;
     this.credits = questions.credits;
     this.test = questions.test;
@@ -129,7 +129,7 @@ ReadMe.prototype.renderCredits = function (){
 };
 
 ReadMe.prototype.renderTests = function (){
-  return this.installation ? `## Testing \n ${this.test} \n` : null;
+  return this.installation ? `## Testing Instructions \n ${this.test} \n` : null;
 };
 
 ReadMe.prototype.renderContact = function (){
