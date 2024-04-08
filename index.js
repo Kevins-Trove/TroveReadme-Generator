@@ -27,8 +27,6 @@ function main() {
   console.log(`----------------------------------------------------------------------`);
   console.log('\x1b[33m%s\x1b[0m',`Trove README generator`);
   console.log('\x1b[33m%s\x1b[0m',`Answer dynamic prompts to autogenerate README.md file.`);
-  console.log('\x1b[33m%s\x1b[0m',` The deafult text editor will be opened to enter blocks of text.`);
-  console.log('\x1b[33m%s\x1b[0m',` Close and save the editor to submit text block.`);
   console.log(`----------------------------------------------------------------------`);
   inquirer.prompt([
       {
@@ -38,13 +36,10 @@ function main() {
         default: respoitryName
       },
       {
-        type: 'editor',
+        type: 'input',
         name: 'description',
         message: 'Project description?',
-        filter: function(value) {
-          // Normalize line endings
-          return value.trim().replace(/\r\n|\r|\n/g, '\n');
-        }
+        editor: "code"
       },
       {
         type: 'list',
@@ -54,42 +49,25 @@ function main() {
         default: "MIT"
       },
       {
-        type: 'editor',
+        type: 'input',
         name: 'installation',
-        message: 'Installation instructions:',
-        filter: function(value) {
-          // Normalize line endings
-          return value.trim().replace(/\r\n|\r|\n/g, '\n');
-        }
+        message: 'Installation instructions:'
       },
       {
-        type: 'editor',
+        type: 'input',
         name: 'usage',
-        message: 'Usage information:',
-        filter: function(value) {
-          // Normalize line endings
-          return value.trim().replace(/\r\n|\r|\n/g, '\n');
-        }
+        message: 'Usage information:'
       },
       {
-        type: 'editor',
+        type: 'input',
         name: 'credits',
-        message: 'Credits (collaborators):',
-        filter: function(value) {
-          // Normalize line endings
-          return value.trim().replace(/\r\n|\r|\n/g, '\n');
-        }
+        message: 'Credits (collaborators):'
       },
       {
-        type: 'editor',
+        type: 'input',
         name: 'test',
-        message: 'Testing instructions:',
-        filter: function(value) {
-          // Normalize line endings
-          return value.trim().replace(/\r\n|\r|\n/g, '\n');
-        }
-      }
-      ,
+        message: 'Testing instructions:'
+      },
       {
         type: 'input',
         name: 'contact',
