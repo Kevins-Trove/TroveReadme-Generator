@@ -2,12 +2,17 @@
   "name": "trovereadme-generator",
   "version": "1.0.0",
   "description": "TroveReadme-Generator for automated markdown file creation.",
-  "main": "readGen.js",
+  "main": "index.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kevins-Trove/TroveReadme-Generator"
+  },
   "bin": {
-    "readGen": "./readGen.js"
+    "readGen": "./index.js"
   },
   "scripts": {
-    "test": "run readGen"
+    "start": "node ."
   },
     "keywords": [
       "node",
