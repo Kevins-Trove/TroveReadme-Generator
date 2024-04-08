@@ -10,7 +10,12 @@
 //------------------------------------------------------------
 const { execSync } = require('child_process');
 const fs = require('fs');
-const License = require('./license');
+const License = require('./licenseClass');
+
+//------------------------------------------------------------
+// Global variables
+//------------------------------------------------------------
+const readMeFileName = "README.md";
 
 //------------------------------------------------------------
 // Class declaration
@@ -66,38 +71,19 @@ ReadMe.prototype.render = function (){
 
 
 // Write to file, calls render function
-ReadMe.prototype.writeToFile = function (fileName){
+ReadMe.prototype.writeToFile = function (){
   const items = this.render();
 
-  fs.writeFile(fileName, items, (err) => {
+  console.log(`----------------------------------------------------------------------`);
+  fs.writeFile(readMeFileName, items, (err) => {
     if (err) {
-      console.error('Error:', err);
+      console.error('\x1b[31m%s\x1b[0m', 'Error:', err);
       return;
     }
-    console.log('Data has been written to the file.');
+    console.log('\x1b[32m%s\x1b[0m','README.md file has been created.');
   });
 
 };
-
-// Read file and parse by headers into class
-ReadMe.prototype.readFileToClass = function(filename, callback) {
-  
-  fs.readFile(filename, 'utf8', (err, data) => {
-    if (err) {
-      callback(err, null);
-      return;
-    }
-    
-    // Split the data by header
-    const dataArray = data.split('##');
-    
-    dataArray.forEach(item => {
-      console.log(`Item =  ${item}`);
-  });
-    
-    callback(null, dataArray);
-  });
-}
 
 ReadMe.prototype.getGitRepository = function() {
   try {
@@ -110,7 +96,7 @@ ReadMe.prototype.getGitRepository = function() {
 }
 
 ReadMe.prototype.renderTitle = function  (){
-  return this.title ? `#  ${this.title} \n` : null;
+  return this.title ? `#  ${this.title} ${new License().licenseBadge(this.license)}\n` : null;
 };
 
 ReadMe.prototype.renderDescription = function  (){
@@ -143,7 +129,7 @@ ReadMe.prototype.renderCredits = function (){
 };
 
 ReadMe.prototype.renderTests = function (){
-  return this.installation ? `## Tests \n ${this.test} \n` : null;
+  return this.installation ? `## Testing \n ${this.test} \n` : null;
 };
 
 ReadMe.prototype.renderContact = function (){

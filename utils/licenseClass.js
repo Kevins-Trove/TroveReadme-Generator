@@ -1,8 +1,7 @@
 //------------------------------------------------------------
-// license
+// License
 //
-// Main class to create and format markdown file associated
-// with a project.
+// Class to control licenses
 //------------------------------------------------------------
 
 //------------------------------------------------------------
