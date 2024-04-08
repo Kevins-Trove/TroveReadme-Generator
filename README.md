@@ -19,7 +19,7 @@ Features
 ## Installation 
  You can install the Kevins-Trove/TroveReadme-Generator package via npm:
 
- - npm install Kevins-Trove/TroveReadme-Generator
+ - npm install github:Kevins-Trove/TroveReadme-Generator
 
 Once installed, you can use the package in your Node.js application:
 

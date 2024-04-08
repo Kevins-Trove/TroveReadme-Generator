@@ -1,11 +1,17 @@
 {
   "name": "trovereadme-generator",
   "version": "1.0.0",
-  "description": "",
+  "description": "TroveReadme-Generator for automated markdown file creation.",
   "main": "index.js",
-    "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "start": "node index.js"
+  },
+    "keywords": [
+      "node",
+      "readme"
+    ],
+  "author": "Kevin Roper",
+  "license": "MIT",
   "dependencies": {
     "inquirer": "^8.2.4"
   }
